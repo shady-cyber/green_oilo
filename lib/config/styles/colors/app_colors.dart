@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'hex_color.dart';
 
 class AppColors {
-  static const Color primaryColor = Color(0xffff7c45);
+  static const Color primaryColor = Color(0xff418329);
   static const Color validateTextColorRed = Color(0xffE8582D);
   static const Color validateTextColorGreen = Color(0xff94CB43);
   static const Color validateTextColorGrey = Color(0xff8D93A5);
   static const Color grayColor = Color(0xffD5D5D5);
+  static const Color goldColor = Color(0xfffff71b);
   static const Color validationErrorColor = Color(0xffadbd1);
   static const Color calendarColor = Color(0xffFFD9CE);
   static const Color blackColor = Colors.black;

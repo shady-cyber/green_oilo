@@ -6,7 +6,7 @@ import 'config/themes/app_theme.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-              /**shady**/
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

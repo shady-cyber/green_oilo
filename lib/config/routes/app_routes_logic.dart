@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sample_template/screens/home/home_screen.dart';
+import '../../screens/login/login_screen.dart';
+import '../../screens/splash/splash_screen.dart';
 import '../styles/strings/app/app_strings.dart';
 import 'app_routes.dart';
 
@@ -8,32 +11,31 @@ class AppRoutes {
   static Route? onGenerateRoute(RouteSettings routeSettings) {
     //////////////////////////Auth//////////////////////////////
     switch (routeSettings.name) {
-      // case Routes.onboarding:
-      //   return MaterialPageRoute(builder: (context) {
-      //     return OnboardingScreen();
-      //   });
+      case Routes.splash:
+        return MaterialPageRoute(builder: (context) {
+          return SplashScreen();
+        });
 
-      // case Routes.initialRoute:
-      //   return MaterialPageRoute(builder: (context) {
-      //     return CacheHelper.getData(key: "emailRemeber") != null
-      //         ? CacheHelper.getData(key: "type") == 'Coach'
-      //             ? LayoutCoach(currentIndex: 0)
-      //             : LayoutTrainee(currentIndex: 0)
-      //         : const SplashScreen();
-      //     //  return const SplashScreen();
-      //   });
-      // case Routes.splash:
-      //   return MaterialPageRoute(builder: (context) {
-      //     return const SplashScreen();
-      //   });
-      // case Routes.login:
-      //   return MaterialPageRoute(builder: (context) {
-      //     return LoginScreen(
-      //       withError: false,
-      //       hidePassword: false,
-      //       obscureText: false,
-      //     );
-      //   });
+      case Routes.initialRoute:
+        return MaterialPageRoute(builder: (context) {
+          return SplashScreen();
+            // CacheHelper.getData(key: "emailRemeber") != null
+            //   ? CacheHelper.getData(key: "type") == 'Coach'
+            //       ? LayoutCoach(currentIndex: 0)
+            //       : LayoutTrainee(currentIndex: 0)
+            //   : const
+            // SplashScreen();
+          //  return const SplashScreen();
+        });
+      case Routes.home:
+        return MaterialPageRoute(builder: (context) {
+          return HomeScreen();
+        });
+      case Routes.login:
+        return MaterialPageRoute(builder: (context) {
+          return LoginScreen(
+          );
+        });
       //
       // case Routes.updateEmail:
       //   return MaterialPageRoute(builder: (context) {
@@ -55,6 +57,6 @@ class AppRoutes {
               body: Center(
                 child: Text(AppStrings.noRouteFound),
               ),
-            )));
-  }
+        )));
+    }
 }
