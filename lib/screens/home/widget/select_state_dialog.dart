@@ -47,64 +47,45 @@ class _SelectOrderStateDialogState extends State<SelectOrderStateDialog> {
                     ),
                     SizedBox(height: 5.h),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 50.0.h),
+                      padding: EdgeInsets.symmetric(horizontal: 2.0.h),
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Radio(
-                                  activeColor: AppColors.primaryColor,
-                                  value: 1,
-                                  groupValue: widget.homeOrderCubit.selectOrder,
-                                  onChanged: (val) {
-                                    if(val != null) {
-                                      widget.homeOrderCubit.selectOrderFunc(val, 1);
-                                    }
-                                  }),
-                              Text(
-                                AppStrings.received,
-                                style: subHeadingTextStyle,
-                              ),
-                            ],
+                          Container(
+                            child: SharedButton(
+                              title: AppStrings.received,
+                              textStyle: btnTextStyle,
+                              backgroundColor: AppColors.primaryColor,
+                              onPressed: () {
+                                // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
+                                //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
+                                Navigator.pop(context);
+                              },
+                              textTitleSize: 15,
+                              borderRaduis: 10,
+                              width: 284.w,
+                              height: 45.h,
+                              color: AppColors.whiteColor,
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Radio(
-                                  activeColor: AppColors.primaryColor,
-                                  value: 2,
-                                  groupValue: widget.homeOrderCubit.selectOrder,
-                                  onChanged: (val) {
-                                    if(val != null) {
-                                      widget.homeOrderCubit.selectOrderFunc(val, 2);
-                                    }
-                                  }),
-                              Text(
-                                AppStrings.NotReceived,
-                                style: subHeadingTextStyle,
-                              ),
-                            ],
+                          SizedBox(height: 10.h),
+                          Container(
+                            child: SharedButton(
+                              title: AppStrings.NotReceived,
+                              textStyle: btnTextStyle,
+                              backgroundColor: AppColors.primaryColor,
+                              onPressed: () {
+                                // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
+                                //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
+                                Navigator.pop(context);
+                              },
+                              textTitleSize: 15,
+                              borderRaduis: 10,
+                              width: 284.w,
+                              height: 45.h,
+                              color: AppColors.whiteColor,
+                            ),
                           ),
                         ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Container(
-                      child: SharedButton(
-                        title: AppStrings.selectBtn,
-                        textStyle: btnTextStyle,
-                        backgroundColor: AppColors.primaryColor,
-                        onPressed: () {
-                          // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
-                          //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
-                          Navigator.pop(context);
-                        },
-                        textTitleSize: 15,
-                        borderRaduis: 10,
-                        width: 284.w,
-                        height: 45.h,
-                        color: AppColors.whiteColor,
                       ),
                     ),
                   ],

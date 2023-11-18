@@ -21,17 +21,8 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.monetization_on, color: AppColors.goldColor),
-            SizedBox(width: 5), // Add some spacing between icon and text
-            Text(
-              '200',
-              style: TextStyle(fontFamily: 'Poppins', color: AppColors.primaryColor),
-            ),
-          ],
-        ),
+        leading: Icon(Icons.monetization_on, color: AppColors.goldColor),
+
         // IconButton(
         //   icon: Icon(Icons.monetization_on, color: AppColors.goldColor),
         //   onPressed: () {
@@ -82,9 +73,12 @@ class HomeScreen extends StatelessWidget {
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
                                   BorderRadius.vertical(top: Radius.circular(20))),
-                              builder: (context) => SelectOrderStateDialog(
-                                homeOrderCubit: homeOrderCubit, level: '', index: 0,
+                              builder: (context) => Container(
+                                height: 250,
+                                child: SelectOrderStateDialog(
+                                  homeOrderCubit: homeOrderCubit, level: '', index: 0,
 
+                                ),
                               ));
                         },
                       ),
