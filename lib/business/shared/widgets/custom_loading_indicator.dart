@@ -7,15 +7,16 @@ class CustomLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SpinKitWave(
-      size: 25,
-      itemBuilder: (BuildContext context, int index) {
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            color: AppColors.primaryColor,
-          ),
-        );
-      },
+    return SpinKitWaveSpinner(
+      size: 50,
+      color: AppColors.primaryColor,
+      // itemBuilder: (BuildContext context, int index) {
+      //   return DecoratedBox(
+      //     decoration: BoxDecoration(
+      //       color: AppColors.primaryColor,
+      //     ),
+      //   );
+      // },
     );
   }
 }

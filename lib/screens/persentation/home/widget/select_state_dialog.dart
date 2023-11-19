@@ -8,27 +8,16 @@ import '../../../../../../../config/styles/colors/app_colors.dart';
 import '../../../../../../../config/styles/strings/app/app_strings.dart';
 import '../../../data/generalCubit/general_state.dart';
 
-class SelectOrderStateDialog extends StatefulWidget {
+class SelectOrderStateDialog extends StatelessWidget {
   GeneralCubit homeOrderCubit;
   String level;
   int index;
   SelectOrderStateDialog({super.key, required this.homeOrderCubit, required this.level, required this.index});
 
   @override
-  State<SelectOrderStateDialog> createState() => _SelectOrderStateDialogState();
-}
-
-class _SelectOrderStateDialogState extends State<SelectOrderStateDialog> {
-  @override
-  void initState() {
-    super.initState();
-  //  widget.editTraineeSportCubit.initialChecker(widget.level);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: widget.homeOrderCubit,
+      value: homeOrderCubit,
       child: BlocBuilder<GeneralCubit, GeneralState>(
           builder: (context, state) {
             return SizedBox(
@@ -38,14 +27,14 @@ class _SelectOrderStateDialogState extends State<SelectOrderStateDialog> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     SizedBox(
-                      height: 13.h,
+                      height: 10.h,
                     ),
                     Text(
                       AppStrings.selectOrderState,
                       style: headingTextStyle.copyWith(fontSize: 17.sp),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 5.h),
+                    SizedBox(height: 25.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 2.0.h),
                       child: Column(

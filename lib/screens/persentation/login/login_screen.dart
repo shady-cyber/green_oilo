@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_template/business/shared/widgets/shared_button.dart';
 import 'package:sample_template/config/styles/colors/app_colors.dart';
 import 'package:sample_template/config/styles/strings/app/app_strings.dart';
+import 'package:sample_template/screens/data/model/order_model.dart';
 import '../../../business/shared/widgets/loader.dart';
 import '../../../config/assets/assets_manager.dart';
 import '../../../config/routes/app_routes.dart';
+import '../../../config/routes/navigation_arguments.dart';
 import '../../data/generalCubit/general_cubit.dart';
 import '../../data/generalCubit/general_state.dart';
 
@@ -63,10 +65,15 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () async {
                             Loader.start();
                             if (phoneController.text.isNotEmpty) {
-                              await generalCubit.fetchPrivacyData(phoneController.text).then((value) {
-                                    if(value == true){
+                              await generalCubit.fetchOrderData(context, phoneController.text).then((value) {
+                                GeneralOrderData state = GeneralOrderData(value);
+                                value = state.order;
+                                var stateOrder = state.order;
+                                if(value == stateOrder){
                                        Loader.stop(context);
-                                       Navigator.pushNamed(context, Routes.home, arguments: [generalCubit,state]);
+                                       Navigator.pushNamed(context, Routes.home,
+                                         arguments: NavigationArguments(cubit: generalCubit, data: state),
+                                       );
                                     } else {
                                       Loader.stop(context);
                                       ScaffoldMessenger.of(context).showSnackBar(

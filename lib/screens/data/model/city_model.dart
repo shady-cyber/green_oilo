@@ -7,7 +7,7 @@ class City {
 
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
-      cityName: json['city_name'],
+      cityName: json['city_name'] ?? "",
     );
   }
 }

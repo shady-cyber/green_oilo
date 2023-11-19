@@ -1,9 +1,9 @@
-// import '../../Basic_Features/Trainee/settings_trainee/presentation/screens/edit_trainee_profile/cubit/trainee_cubit_profile.dart';
-// import '../../Basic_Features/Trainee/settings_trainee/presentation/screens/edit_trainee_profile/cubit/trainee_states_profile.dart';
+import '../../screens/data/generalCubit/general_cubit.dart';
+import '../../screens/data/generalCubit/general_state.dart';
 
 class NavigationArguments {
-  // final TraineeEditProfileDataa data;
-  // final TraineeEditProfileCubit cubit;
+  final GeneralOrderData data;
+  final GeneralCubit cubit;
 
-  //NavigationArguments({required this.data, required this.cubit});
+  NavigationArguments({required this.data, required this.cubit});
 }

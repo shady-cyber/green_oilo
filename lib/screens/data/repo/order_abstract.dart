@@ -1,6 +1,6 @@
-
+import 'package:flutter/cupertino.dart';
 import '../model/order_model.dart';
 
 abstract class OrderRepoAbstract {
-   Future<Order> getOrderData(String phone);
+   Future<List<Order>> getOrderData(BuildContext context, String phone);
 }

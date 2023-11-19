@@ -21,10 +21,10 @@ class Address {
 
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
-      addressLine1: json['address_line_1'],
-      addressLine2: json['address_line_2'],
-      stateId: json['state_id'],
-      cityId: json['city_id'],
+      addressLine1: json['address_line_1'] ?? "",
+      addressLine2: json['address_line_2'] ?? "",
+      stateId: json['state_id'] ?? 0,
+      cityId: json['city_id'] ?? 0,
       city: City.fromJson(json['city']),
       state: State.fromJson(json['state']),
     );

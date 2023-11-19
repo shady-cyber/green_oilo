@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_template/business/shared/widgets/loader.dart';
 import '../../../business/saved_data/cache_helper.dart';
 import '../model/order_model.dart';
 import '../repo/order_repo.dart';
@@ -21,24 +23,43 @@ class GeneralCubit extends Cubit<GeneralState> {
     emit(SuccessOrderLoaded());
   }
 
-  Future<bool> fetchPrivacyData(String phone) async {
+  Future <List<Order>> fetchOrderData(BuildContext context, String phone) async {
     bool result = false;
     emit(LoadingOrderState());
-    Order data = await repo.getOrderData(phone);
+    List<Order> data = await repo.getOrderData(context, phone);
     try {
-      data.fetchOrderData();
+      for(int i = 0; i < data.length; i++){
+        if(data[i].orderData.isEmpty){
+          data[i].orderData.add(data[i]);
+        //  data[i].fetchOrderData();
+        }
+      }
       emit(GeneralOrderData(data));
+      // data.orderData = data;
+      // data.fetchOrderData();
       if(data != null){
         result = true;
         savePhoneNumber(phone);
         emit(SuccessOrderLoaded());
-        return result;
+        return data;
+      } else {
+        Loader.stop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(" من فضلك ادخل رقم الهاتف المسجل بشكل صحيح"),
+            ));
+        emit(ErrorOrderLoaded());
+        return data;
       }
     } catch (e) {
+      Loader.stop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(" من فضلك ادخل رقم الهاتف المسجل بشكل صحيح"),
+          ));
       emit(ErrorOrderLoaded());
-      return result;
+      return [];
     }
-    return result;
   }
 
   savePhoneNumber(String phone) {

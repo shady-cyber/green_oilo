@@ -4,6 +4,7 @@ import '../../screens/persentation/login/login_screen.dart';
 import '../../screens/persentation/splash/splash_screen.dart';
 import '../styles/strings/app/app_strings.dart';
 import 'app_routes.dart';
+import 'navigation_arguments.dart';
 
 class AppRoutes {
   static final navigatorKey = GlobalKey<NavigatorState>();
@@ -28,16 +29,14 @@ class AppRoutes {
           //  return const SplashScreen();
         });
       case Routes.home:
+        final args = routeSettings.arguments as NavigationArguments;
         return MaterialPageRoute(builder: (context) {
-              final Map<String, dynamic> arguments =
-              routeSettings.arguments as Map<String, dynamic>;
-              final homeCubit = arguments['generalCubit'];
-              final state = arguments['state'];
-              return HomeScreen(
-                homeCubit: homeCubit,
-                state: state,
-              );
-            });
+          return HomeScreen(
+            homeCubit: args.cubit,
+            state: args.data,
+          );
+        });
+
     //////////////////////////Auth//////////////////////////////
       case Routes.login:
         return MaterialPageRoute(builder: (context) {

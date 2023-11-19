@@ -10,12 +10,17 @@ abstract class GeneralState extends Equatable {
 }
 
 class GeneralOrderData extends GeneralState {
-  final Order order;
+  final List<Order> order;
   GeneralOrderData(this.order) : super();
-
+  factory GeneralOrderData.fromJson(Map<String, dynamic> json) {
+    final List<dynamic> orderListJson = json['order'];
+    final List<Order> orderList = orderListJson.map((orderJson) => Order.fromJson(orderJson)).toList();
+    return GeneralOrderData(orderList);
+  }
   @override
   List<Object?> get props => [order];
 }
+
 
 class InitialGeneralState extends GeneralState {}
 

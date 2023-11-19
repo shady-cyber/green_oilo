@@ -9,8 +9,8 @@ class Day {
 
   factory Day.fromJson(Map<String, dynamic> json) {
     return Day(
-      name: json['name'],
-      dayDate: json['day_date'],
+      name: json['name'] ?? "",
+      dayDate: json['day_date'] ?? "",
     );
   }
 }

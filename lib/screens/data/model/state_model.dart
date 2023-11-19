@@ -7,7 +7,7 @@ class State {
 
   factory State.fromJson(Map<String, dynamic> json) {
     return State(
-      stateName: json['state_name'],
+      stateName: json['state_name'] ?? "",
     );
   }
 }

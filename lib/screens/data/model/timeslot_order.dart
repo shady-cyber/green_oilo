@@ -13,8 +13,8 @@ class Timeslot {
 
   factory Timeslot.fromJson(Map<String, dynamic> json) {
     return Timeslot(
-      startTime: json['start_time'],
-      endTime: json['end_time'],
+      startTime: json['start_time'] ?? "",
+      endTime: json['end_time'] ?? "",
       day: Day.fromJson(json['day']),
     );
   }

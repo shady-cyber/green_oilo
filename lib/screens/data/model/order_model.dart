@@ -44,19 +44,19 @@ class Order {
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      id: json['id'],
-      orderNumber: json['order_number'],
-      quantity: json['quantity'],
-      timeslotId: json['timeslot_id'],
-      status: json['status'],
-      notes: json['notes'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
+      id: json['id'] ?? 0,
+      orderNumber: json['order_number'] ?? "",
+      quantity: json['quantity'] ?? 0,
+      timeslotId: json['timeslot_id'] ?? 0,
+      status: json['status'] ?? "",
+      notes: json['notes'] ?? "",
+      createdAt: json['created_at'] ?? "",
+      updatedAt: json['updated_at'] ?? "",
       timeslot: Timeslot.fromJson(json['timeslot']),
       customer: Customer.fromJson(json['customer']),
       address: Address.fromJson(json['address']),
       gift: Gift.fromJson(json['gift']),
-      orderData: List<Order>.from(json["data"].map((x) => Order.fromJson(x))),
+      orderData: [],
     );
   }
 
