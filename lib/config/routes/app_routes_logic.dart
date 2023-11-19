@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sample_template/screens/home/home_screen.dart';
-import '../../screens/login/login_screen.dart';
-import '../../screens/splash/splash_screen.dart';
+import '../../screens/persentation/home/home_screen.dart';
+import '../../screens/persentation/login/login_screen.dart';
+import '../../screens/persentation/splash/splash_screen.dart';
 import '../styles/strings/app/app_strings.dart';
 import 'app_routes.dart';
 
@@ -29,8 +29,16 @@ class AppRoutes {
         });
       case Routes.home:
         return MaterialPageRoute(builder: (context) {
-          return HomeScreen();
-        });
+              final Map<String, dynamic> arguments =
+              routeSettings.arguments as Map<String, dynamic>;
+              final homeCubit = arguments['generalCubit'];
+              final state = arguments['state'];
+              return HomeScreen(
+                homeCubit: homeCubit,
+                state: state,
+              );
+            });
+    //////////////////////////Auth//////////////////////////////
       case Routes.login:
         return MaterialPageRoute(builder: (context) {
           return LoginScreen(
