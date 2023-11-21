@@ -68,5 +68,10 @@ class GeneralCubit extends Cubit<GeneralState> {
       emit(SuccessOrderLoaded());
   }
 
+  Future<void> refreshData(BuildContext context) async {
+    await Future.delayed(Duration(seconds: 2));
+    repo.getOrderData(context, CacheHelper.getData(key: "phone"));
+    emit(SuccessOrderLoaded());
+  }
 
 }

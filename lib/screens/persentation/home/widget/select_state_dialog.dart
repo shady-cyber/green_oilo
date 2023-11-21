@@ -61,7 +61,7 @@ class SelectOrderStateDialog extends StatelessWidget {
                             child: SharedButton(
                               title: AppStrings.NotReceived,
                               textStyle: btnTextStyle,
-                              backgroundColor: AppColors.primaryColor,
+                              backgroundColor: AppColors.redTextColor,
                               onPressed: () {
                                 // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
                                 //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
