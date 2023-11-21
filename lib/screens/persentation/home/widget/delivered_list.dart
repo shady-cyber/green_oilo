@@ -12,16 +12,14 @@ Widget DeliveredList(BuildContext context, GeneralOrderData state, GeneralCubit 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Text(
-        'تم التسليم',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.red),
+      Divider(
+        color: AppColors.primaryColor,
+        thickness: 0.2,
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 35.0),
-        child: Divider(
-          color: AppColors.primaryColor,
-          thickness: 0.2,
-        ),
+      SizedBox(height: 10),
+      Text(
+        'تم التسليـم',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.red),
       ),
       SizedBox(height: 5),
       Expanded(

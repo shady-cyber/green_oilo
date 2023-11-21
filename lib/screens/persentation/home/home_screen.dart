@@ -54,33 +54,7 @@ class HomeScreen extends StatelessWidget {
                ],
               ),
             ),
-            //   leading: Row(
-            //     children: [
-            //       Icon(Icons.monetization_on, color: AppColors.goldColor),
-            //       SizedBox(width: 5),
-            //       // Add spacing between icon and number
-            //       Text(
-            //         '200',
-            //         style: TextStyle(
-            //           fontFamily: 'Cairo',
-            //           color: AppColors.primaryColor,
-            //           fontSize: 15,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            //   title: Align(
-            //     alignment: Alignment.centerRight,
-            //     child: Text(
-            //       'حسن محمد علي',
-            //       style: TextStyle(
-            //           color: AppColors.primaryColor,
-            //           fontWeight: FontWeight.bold,
-            //           fontSize: 18),
-            //     ),
-            //   ),
-            //   centerTitle: false,
-            // ),
+
             body: PageView(
               reverse: true,
               controller: _pageController,

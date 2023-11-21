@@ -14,6 +14,8 @@ class SelectOrderStateDialog extends StatelessWidget {
   int index;
   SelectOrderStateDialog({super.key, required this.homeOrderCubit, required this.level, required this.index});
 
+  TextEditingController optinalText = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -65,7 +67,9 @@ class SelectOrderStateDialog extends StatelessWidget {
                               onPressed: () {
                                 // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
                                 //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
-                                Navigator.pop(context);
+                               // Navigator.pop(context);
+                                //homeOrderCubit.showTextview = !homeOrderCubit.showTextview;
+                                homeOrderCubit.handelShowTextview();
                               },
                               textTitleSize: 15,
                               borderRaduis: 10,
@@ -74,6 +78,74 @@ class SelectOrderStateDialog extends StatelessWidget {
                               color: AppColors.whiteColor,
                             ),
                           ),
+                        BlocBuilder<GeneralCubit, GeneralState>(
+                        builder: (context, state) {
+                        return Visibility(
+                            visible: homeOrderCubit.showTextview ? true : false,
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 10.h),
+                                  Container(
+                                    width: 284.w,
+                                    height: 45.h,
+                                    child: TextField(
+                                      controller: optinalText,
+                                      textDirection: TextDirection.rtl,
+                                      textAlign: TextAlign.right,
+                                      decoration: InputDecoration(
+                                        hintText: AppStrings.enterReason,
+                                        hintStyle: TextStyle(
+                                          fontSize: 15.sp,
+                                          color: AppColors.primaryColor,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: AppColors.primaryColor,
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: AppColors.primaryColor,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: AppColors.primaryColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Container(
+                                    child: SharedButton(
+                                      title: AppStrings.confirm,
+                                      textStyle: btnTextStyle,
+                                      backgroundColor: AppColors.validateTextColorRed,
+                                      onPressed: () {
+                                        // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
+                                        //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
+                                        homeOrderCubit.showTextview = !homeOrderCubit.showTextview;
+                                        Navigator.pop(context);
+                                      },
+                                      textTitleSize: 15,
+                                      borderRaduis: 10,
+                                      width: 284.w,
+                                      height: 45.h,
+                                      color: AppColors.whiteColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          );
+    }
+    ),
+
                         ],
                       ),
                     ),

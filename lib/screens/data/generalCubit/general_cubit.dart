@@ -13,6 +13,7 @@ class GeneralCubit extends Cubit<GeneralState> {
   Object? selectOrder = 0;
   bool oneTime = false;
   int selectIndexOfOrder = 1;
+  bool showTextview = true;
 
 
   selectOrderFunc(Object item, int index) {
@@ -20,6 +21,11 @@ class GeneralCubit extends Cubit<GeneralState> {
     oneTime = true;
     selectOrder = item;
     selectIndexOfOrder = index;
+    emit(SuccessOrderLoaded());
+  }
+  handelShowTextview(){
+    emit(LoadingOrderState());
+    showTextview = !showTextview;
     emit(SuccessOrderLoaded());
   }
 

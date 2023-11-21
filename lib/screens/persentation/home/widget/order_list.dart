@@ -12,16 +12,14 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Text(
-        'الطلبات',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.red),
+      Divider(
+        color: AppColors.primaryColor,
+        thickness: 0.2,
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 35.0),
-        child: Divider(
-          color: AppColors.primaryColor,
-          thickness: 0.2,
-        ),
+      SizedBox(height: 10),
+      Text(
+        'الطـلبـات',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.red),
       ),
       SizedBox(height: 5),
       Expanded(
@@ -50,6 +48,7 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                         children: [
                           Text('العنوان: ${order.OrderAddress}'),
                           Text('الكمية: ${order.Quantity} لتر'),
+                          Text('الهدية: ${order.CustomerGift}'),
                         ],
                       ),
                       trailing: Directionality(
@@ -64,7 +63,7 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                                     borderRadius:
                                     BorderRadius.vertical(top: Radius.circular(20))),
                                 builder: (context) => Container(
-                                  height: 250,
+                                  height: 300,
                                   child: SelectOrderStateDialog(
                                     homeOrderCubit: homeCubit, level: '', index: 0,
 
