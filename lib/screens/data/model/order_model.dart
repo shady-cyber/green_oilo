@@ -18,9 +18,11 @@ class Order {
   Address address;
   Gift gift;
   List<Order> orderData;
+  List<Order> orderDeliveredData;
 
   String OrderNum = "Order Number";
   String Quantity = "Quantity";
+  String OrderStatus = "status";
   String OrderAddress = "Address";
   String CustomerName = "Customer Name";
   String CustomerGift = "Gift";
@@ -39,7 +41,8 @@ class Order {
     required this.customer,
     required this.address,
     required this.gift,
-    required this.orderData
+    required this.orderData,
+    required this.orderDeliveredData
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -57,6 +60,7 @@ class Order {
       address: Address.fromJson(json['address']),
       gift: Gift.fromJson(json['gift']),
       orderData: [],
+      orderDeliveredData: [],
     );
   }
 
@@ -71,6 +75,7 @@ class Order {
     }
     CustomerName = customer.fullName;
     CustomerGift = gift.giftName;
+    OrderStatus = status;
   }
 }
 

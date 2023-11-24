@@ -10,9 +10,9 @@ import '../../../data/generalCubit/general_state.dart';
 
 class SelectOrderStateDialog extends StatelessWidget {
   GeneralCubit homeOrderCubit;
-  String level;
+  GeneralOrderData states;
   int index;
-  SelectOrderStateDialog({super.key, required this.homeOrderCubit, required this.level, required this.index});
+  SelectOrderStateDialog({super.key, required this.homeOrderCubit, required this.states, required this.index});
 
   TextEditingController optinalText = TextEditingController();
 
@@ -47,8 +47,7 @@ class SelectOrderStateDialog extends StatelessWidget {
                               textStyle: btnTextStyle,
                               backgroundColor: AppColors.primaryColor,
                               onPressed: () {
-                                // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
-                                //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
+                                homeOrderCubit.sendOrderStatus(states.order[index].status, states.order[index].id, states.order[index].notes);
                                 Navigator.pop(context);
                               },
                               textTitleSize: 15,
@@ -65,10 +64,6 @@ class SelectOrderStateDialog extends StatelessWidget {
                               textStyle: btnTextStyle,
                               backgroundColor: AppColors.redTextColor,
                               onPressed: () {
-                                // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
-                                //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
-                               // Navigator.pop(context);
-                                //homeOrderCubit.showTextview = !homeOrderCubit.showTextview;
                                 homeOrderCubit.handelShowTextview();
                               },
                               textTitleSize: 15,
@@ -128,8 +123,7 @@ class SelectOrderStateDialog extends StatelessWidget {
                                       textStyle: btnTextStyle,
                                       backgroundColor: AppColors.validateTextColorRed,
                                       onPressed: () {
-                                        // widget.editTraineeSportCubit.showList = widget.editTraineeSportCubit.selectTraineeSportsLevel(
-                                        //     widget.editTraineeSportCubit.selectIndexToDetectTraineeSportsLevel, widget.index);
+                                        homeOrderCubit.sendOrderStatus(states.order[index].status, states.order[index].id, states.order[index].notes);
                                         homeOrderCubit.showTextview = !homeOrderCubit.showTextview;
                                         Navigator.pop(context);
                                       },

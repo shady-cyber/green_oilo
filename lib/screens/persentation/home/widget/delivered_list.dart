@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sample_template/screens/persentation/home/widget/select_state_dialog.dart';
 import '../../../../config/styles/colors/app_colors.dart';
 import '../../../data/generalCubit/general_cubit.dart';
 import '../../../data/generalCubit/general_state.dart';
@@ -31,11 +30,18 @@ Widget DeliveredList(BuildContext context, GeneralOrderData state, GeneralCubit 
               key: _refreshKey,
               onRefresh: () => homeCubit.refreshData(context),
               child: ListView.builder(
-                itemCount:  state.order.length,
+                itemCount:  homeCubit.DeliveredData.length,
                 itemBuilder: (context, index) {
-                  Order order = state.order[index];
+                  Order order = homeCubit.DeliveredData[index];
                   state.order[index].fetchOrderData();
-                  return Card(
+
+                  return
+                    homeCubit.DeliveredData.length == 0
+                        ? Center(child: Text('لا يوجد طلبات'))
+                        : Card(
+                      color: homeCubit.DeliveredData[index].status == "processing" ? Colors.yellow[50] :
+                      homeCubit.DeliveredData[index].status == "delivered" ? Colors.green[50] :
+                      homeCubit.DeliveredData[index].status == "canceled" ? Colors.red[50] : Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0), // Set the border radius here
                       side: BorderSide(color: AppColors.primaryColor, width: 0.3), // Set the border color and width
@@ -47,31 +53,41 @@ Widget DeliveredList(BuildContext context, GeneralOrderData state, GeneralCubit 
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('العنوان: ${order.OrderAddress}'),
-                          Text('الكمية: ${order.Quantity} لتر'),
+                          Text('الهدية: ${order.CustomerGift}'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('الكمية: ${order.Quantity} لتر'),
+                              homeCubit.DeliveredData[index].status == "processing" ? Text('قيد التنفيذ') :
+                              homeCubit.DeliveredData[index].status == "delivered" ? Text('تم التنفيذ') :
+                              homeCubit.DeliveredData[index].status == "canceled" ? Text('تم الالغاء') : Text(''),
+                            ],
+                          ),
                         ],
                       ),
-                      trailing: Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_forward_ios, color: AppColors.primaryColor,size: 20,),
-                          onPressed: () {
-                            showModalBottomSheet(
-                                backgroundColor: Colors.white,
-                                context: context,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.vertical(top: Radius.circular(20))),
-                                builder: (context) => Container(
-                                  height: 250,
-                                  child: SelectOrderStateDialog(
-                                    homeOrderCubit: homeCubit, level: '', index: 0,
-                                  ),
-                                ));
-                          },
-                        ),
-                      ),
+                      // trailing: Directionality(
+                      //   textDirection: TextDirection.rtl,
+                      //   child: IconButton(
+                      //     icon: Icon(Icons.arrow_forward_ios, color: AppColors.primaryColor,size: 20,),
+                      //     onPressed: () {
+                      //       showModalBottomSheet(
+                      //           backgroundColor: Colors.white,
+                      //           context: context,
+                      //           shape: const RoundedRectangleBorder(
+                      //               borderRadius:
+                      //               BorderRadius.vertical(top: Radius.circular(20))),
+                      //           builder: (context) => Container(
+                      //             height: 250,
+                      //             child: SelectOrderStateDialog(
+                      //               homeOrderCubit: homeCubit, level: '', index: 0,
+                      //             ),
+                      //           ));
+                      //     },
+                      //   ),
+                      // ),
                     ),
                   );
+
                 },
               ),
             ),

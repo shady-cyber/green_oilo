@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../../../business/connection/backend/dio_helper.dart';
 import '../../../../../../../../business/connection/backend/end_points.dart';
 import '../../../business/shared/widgets/loader.dart';
+import '../model/delivery_model.dart';
 import '../model/order_model.dart';
 import 'order_abstract.dart';
 
@@ -42,6 +43,25 @@ class OrderDataRepo extends OrderRepoAbstract {
         );
       }
       throw Exception("Error fetching order data: $error");
+    }
+  }
+
+  @override
+  Future<DeliveryOrder> sendOrderStatus(String status, int orderId,
+      String notes, String phone) async {
+    var response = await DioHelper.postData(
+      path: EndPoints.UPDATE_ORDER,
+      data: {
+        "status": status,
+        "order_id": orderId,
+        "notes": notes,
+        "delivery_mobile": phone,
+      },
+    );
+    if (response.statusCode == 200) {
+      return DeliveryOrder.fromJson(response.data);
+    } else {
+      throw Exception("Error sending order status");
     }
   }
 }

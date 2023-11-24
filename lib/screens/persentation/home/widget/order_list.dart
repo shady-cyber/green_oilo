@@ -31,9 +31,10 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
               key: _refreshKey,
               onRefresh: () => homeCubit.refreshData(context),
               child: ListView.builder(
-                itemCount:  state.order.length,
+                itemCount:  homeCubit.OrderData.length,
                 itemBuilder: (context, index) {
-                  Order order = state.order[index];
+                  Order order = homeCubit.OrderData[index];
+                  homeCubit.OrderData[index].fetchOrderData();
                   state.order[index].fetchOrderData();
                   return Card(
                     shape: RoundedRectangleBorder(
@@ -65,8 +66,7 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                                 builder: (context) => Container(
                                   height: 300,
                                   child: SelectOrderStateDialog(
-                                    homeOrderCubit: homeCubit, level: '', index: 0,
-
+                                    homeOrderCubit: homeCubit, states: state, index: 0,
                                   ),
                                 ));
                           },

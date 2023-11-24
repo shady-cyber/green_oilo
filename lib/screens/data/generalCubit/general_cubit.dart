@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_template/business/shared/widgets/loader.dart';
@@ -12,8 +13,10 @@ class GeneralCubit extends Cubit<GeneralState> {
   final OrderDataRepo repo = OrderDataRepo();
   Object? selectOrder = 0;
   bool oneTime = false;
+  bool showTextview = false;
   int selectIndexOfOrder = 1;
-  bool showTextview = true;
+  List<Order> DeliveredData = [];
+  List<Order> OrderData = [];
 
 
   selectOrderFunc(Object item, int index) {
@@ -23,6 +26,7 @@ class GeneralCubit extends Cubit<GeneralState> {
     selectIndexOfOrder = index;
     emit(SuccessOrderLoaded());
   }
+
   handelShowTextview(){
     emit(LoadingOrderState());
     showTextview = !showTextview;
@@ -32,12 +36,19 @@ class GeneralCubit extends Cubit<GeneralState> {
   Future <List<Order>> fetchOrderData(BuildContext context, String phone) async {
     bool result = false;
     emit(LoadingOrderState());
+    DeliveredData.clear();
+    OrderData.clear();
     List<Order> data = await repo.getOrderData(context, phone);
     try {
       for(int i = 0; i < data.length; i++){
         if(data[i].orderData.isEmpty){
-          data[i].orderData.add(data[i]);
-        //  data[i].fetchOrderData();
+          if(data[i].status != "pending"){
+            data[i].orderDeliveredData.add(data[i]);
+            DeliveredData.add(data[i]);
+        } else if(data[i].status == "pending"){
+            data[i].orderData.add(data[i]);
+            OrderData.add(data[i]);
+          }
         }
       }
       emit(GeneralOrderData(data));
@@ -65,6 +76,21 @@ class GeneralCubit extends Cubit<GeneralState> {
           ));
       emit(ErrorOrderLoaded());
       return [];
+    }
+  }
+
+
+  sendOrderStatus(String status, int orderId, String notes) async {
+    emit(LoadingOrderState());
+    try {
+      await repo.sendOrderStatus(status, orderId,
+          notes, CacheHelper.getData(key: "phone"));
+      emit(SuccessOrderDeliveryLoaded());
+    } on DioError catch (e) {
+      print(e);
+      print(e.error);
+      print(e.message);
+      emit(ErrorOrderLoaded());
     }
   }
 

@@ -28,4 +28,6 @@ class LoadingOrderState extends GeneralState {}
 
 class SuccessOrderLoaded extends GeneralState {}
 
+class SuccessOrderDeliveryLoaded extends GeneralState {}
+
 class ErrorOrderLoaded extends GeneralState {}
