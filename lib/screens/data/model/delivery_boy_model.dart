@@ -2,7 +2,7 @@
 class DeliveryBoyOrder {
   String name;
   String mobile;
-  String totalCommission;
+  int totalCommission;
 
   DeliveryBoyOrder({
     required this.name,
