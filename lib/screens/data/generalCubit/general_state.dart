@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../model/order_main_model.dart';
 import '../model/order_model.dart';
 
 abstract class GeneralState extends Equatable {
@@ -10,11 +11,11 @@ abstract class GeneralState extends Equatable {
 }
 
 class GeneralOrderData extends GeneralState {
-  final List<Order> order;
+  final List<OrdersMain> order;
   GeneralOrderData(this.order) : super();
   factory GeneralOrderData.fromJson(Map<String, dynamic> json) {
     final List<dynamic> orderListJson = json['order'];
-    final List<Order> orderList = orderListJson.map((orderJson) => Order.fromJson(orderJson)).toList();
+    final List<OrdersMain> orderList = orderListJson.map((orderJson) => OrdersMain.fromJson(orderJson)).toList();
     return GeneralOrderData(orderList);
   }
   @override

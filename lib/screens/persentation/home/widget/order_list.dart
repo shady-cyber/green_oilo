@@ -41,7 +41,7 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                       itemBuilder: (context, index) {
                         Order order = homeCubit.OrderData[index];
                         homeCubit.OrderData[index].fetchOrderData();
-                        state.order[index].fetchOrderData();
+                       // state.order[index].orders[index].fetchOrderData();
                         return Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),

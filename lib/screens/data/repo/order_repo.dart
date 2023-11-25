@@ -9,29 +9,19 @@ import 'order_abstract.dart';
 
 class OrderDataRepo extends OrderRepoAbstract {
   @override
-  Future<List<Order>> getOrderData(BuildContext context, String phone) async {
+  Future<List<OrdersMain>> getOrderData(BuildContext context, String phone) async {
     try {
       var result = await DioHelper.getData(
         path: EndPoints.BASE_URL + EndPoints.GET_ALL + phone,
       );
-      // Check if the result is a Map
       if (result.data is Map<String, dynamic>) {
         Map<String, dynamic> data = result.data;
 
         if (data.isNotEmpty) {
-          // Return a list with a single Order object
-          return [OrdersMain.fromJson(data).orders[1]];
+          return [OrdersMain.fromJson(data)];
         } else {
           throw Exception("Order data is empty");
         }
-      } else if (result.data is List<dynamic>) {
-        // Handle the case where the result is a List
-        List<dynamic> dataList = result.data;
-        // Convert the list to a list of Order objects
-        List<Order> orderList = dataList.map((item) => Order.fromJson(item))
-            .toList();
-
-        return orderList;
       } else {
         throw Exception("Unexpected data format");
       }

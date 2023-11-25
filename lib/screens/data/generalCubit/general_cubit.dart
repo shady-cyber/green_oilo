@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_template/business/shared/widgets/loader.dart';
 import '../../../business/saved_data/cache_helper.dart';
+import '../model/order_main_model.dart';
 import '../model/order_model.dart';
 import '../repo/order_repo.dart';
 import 'general_state.dart';
@@ -33,21 +34,22 @@ class GeneralCubit extends Cubit<GeneralState> {
     emit(SuccessOrderLoaded());
   }
 
-  Future <List<Order>> fetchOrderData(BuildContext context, String phone) async {
+  Future <List<OrdersMain>> fetchOrderData(BuildContext context, String phone) async {
     bool result = false;
     emit(LoadingOrderState());
     DeliveredData.clear();
     OrderData.clear();
-    List<Order> data = await repo.getOrderData(context, phone);
+    List<OrdersMain> data = await repo.getOrderData(context, phone);
+    data = data.reversed.toList();
     try {
-      for(int i = 0; i < data.length; i++){
-        if(data[i].orderData.isEmpty){
-          if(data[i].status != "pending"){
-            data[i].orderDeliveredData.add(data[i]);
-            DeliveredData.add(data[i]);
-        } else if(data[i].status == "pending"){
-            data[i].orderData.add(data[i]);
-            OrderData.add(data[i]);
+      for(int i = 0; i < data[0].orders.length; i++){
+        if(data[0].orders.isNotEmpty){
+          if(data[0].orders[i].status != "pending"){
+            data[0].orders[i].orderDeliveredData.add(data[0].orders[i]);
+            DeliveredData.add(data[0].orders[i]);
+        } else if(data[0].orders[i].status == "pending"){
+            data[0].orders[i].orderData.add(data[0].orders[i]);
+            OrderData.add(data[0].orders[i]);
           }
         }
       }

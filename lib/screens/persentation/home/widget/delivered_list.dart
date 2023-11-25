@@ -38,6 +38,7 @@ Widget DeliveredList(BuildContext context, GeneralOrderData state, GeneralCubit 
                 itemCount: homeCubit.DeliveredData.length,
                 itemBuilder: (context, index) {
                   Order order = homeCubit.DeliveredData[index];
+                  homeCubit.DeliveredData[index].fetchOrderData();
                   return Card(
                     color: homeCubit.DeliveredData[index].status == "processing"
                         ? Colors.yellow[50]
