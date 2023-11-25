@@ -10,7 +10,7 @@ class Order {
   int quantity;
   int timeslotId;
   String status;
-  String notes;
+  String? notes;
   String createdAt;
   String updatedAt;
   Timeslot timeslot;

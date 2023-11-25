@@ -47,7 +47,7 @@ class SelectOrderStateDialog extends StatelessWidget {
                               textStyle: btnTextStyle,
                               backgroundColor: AppColors.primaryColor,
                               onPressed: () {
-                                homeOrderCubit.sendOrderStatus(states.order[index].status, states.order[index].id, states.order[index].notes);
+                                homeOrderCubit.sendOrderStatus("completed", homeOrderCubit.OrderData[index].id, null);
                                 Navigator.pop(context);
                               },
                               textTitleSize: 15,
@@ -123,7 +123,7 @@ class SelectOrderStateDialog extends StatelessWidget {
                                       textStyle: btnTextStyle,
                                       backgroundColor: AppColors.validateTextColorRed,
                                       onPressed: () {
-                                        homeOrderCubit.sendOrderStatus(states.order[index].status, states.order[index].id, states.order[index].notes);
+                                        homeOrderCubit.sendOrderStatus("declined", homeOrderCubit.OrderData[index].id, optinalText.text);
                                         homeOrderCubit.showTextview = !homeOrderCubit.showTextview;
                                         Navigator.pop(context);
                                       },

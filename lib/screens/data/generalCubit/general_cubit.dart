@@ -80,11 +80,12 @@ class GeneralCubit extends Cubit<GeneralState> {
   }
 
 
-  sendOrderStatus(String status, int orderId, String notes) async {
+  sendOrderStatus(String status, int orderId, String? notes) async {
     emit(LoadingOrderState());
+    String phone = CacheHelper.getData(key: "phone");
     try {
       await repo.sendOrderStatus(status, orderId,
-          notes, CacheHelper.getData(key: "phone"));
+          notes, phone);
       emit(SuccessOrderDeliveryLoaded());
     } on DioError catch (e) {
       print(e);
@@ -101,6 +102,7 @@ class GeneralCubit extends Cubit<GeneralState> {
   }
 
   Future<void> refreshData(BuildContext context) async {
+    emit(LoadingOrderState()); // Add a loading state
     await Future.delayed(Duration(seconds: 2));
     repo.getOrderData(context, CacheHelper.getData(key: "phone"));
     emit(SuccessOrderLoaded());
