@@ -18,6 +18,7 @@ class GeneralCubit extends Cubit<GeneralState> {
   int selectIndexOfOrder = 1;
   List<Order> DeliveredData = [];
   List<Order> OrderData = [];
+  List<OrdersMain> DeliveryBoyData = [];
 
 
   selectOrderFunc(Object item, int index) {
@@ -51,6 +52,7 @@ class GeneralCubit extends Cubit<GeneralState> {
             data[0].orders[i].orderData.add(data[0].orders[i]);
             OrderData.add(data[0].orders[i]);
           }
+          DeliveryBoyData.add(data[0]);
         }
       }
       emit(GeneralOrderData(data));
@@ -82,18 +84,20 @@ class GeneralCubit extends Cubit<GeneralState> {
   }
 
 
-  sendOrderStatus(String status, int orderId, String? notes) async {
+  Future<bool> sendOrderStatus(String status, int orderId, String? notes) async {
     emit(LoadingOrderState());
     String phone = CacheHelper.getData(key: "phone");
     try {
       await repo.sendOrderStatus(status, orderId,
           notes, phone);
       emit(SuccessOrderDeliveryLoaded());
+      return true;
     } on DioError catch (e) {
       print(e);
       print(e.error);
       print(e.message);
       emit(ErrorOrderLoaded());
+      return false;
     }
   }
 

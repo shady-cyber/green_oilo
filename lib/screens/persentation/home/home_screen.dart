@@ -26,6 +26,8 @@ class HomeScreen extends StatelessWidget {
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
+            leading: null,
+            leadingWidth: 10.0,
             title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -33,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             children: [
             Icon(Icons.monetization_on, color: AppColors.goldColor), // Your icon goes here
             SizedBox(width: 8.0),
-            Text('200',
+            Text(homeCubit.DeliveryBoyData[0].deliveryBoy.totalCommission.toString(),
               style: TextStyle(
                 fontFamily: 'Cairo',
                 color: AppColors.primaryColor,
@@ -44,7 +46,7 @@ class HomeScreen extends StatelessWidget {
               ),
             Padding(
             padding: const EdgeInsets.only(right: 16.0),
-            child: Text('حسن محمد علي',
+            child: Text(homeCubit.DeliveryBoyData[0].deliveryBoy.name,
               style: TextStyle(
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.bold,
