@@ -36,7 +36,9 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                     // Show a loading indicator while data is being fetched
                     return Center(child: CircularProgressIndicator());
                   } else {
-                    return ListView.builder(
+                    return homeCubit.OrderData.isEmpty
+                        ? Center(child: Text('لا يوجد طلبات'))
+                        : ListView.builder(
                       itemCount: homeCubit.OrderData.length,
                       itemBuilder: (context, index) {
                         Order order = homeCubit.OrderData[index];
