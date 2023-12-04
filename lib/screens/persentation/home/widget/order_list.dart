@@ -28,12 +28,12 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
             textDirection: TextDirection.rtl,
             child: RefreshIndicator(
               key: _refreshKey,
-              onRefresh: () => homeCubit.refreshData(context),
+              onRefresh: () async {
+                await homeCubit.refreshData(context);
+              },
               child: Builder(
                 builder: (BuildContext context) {
-                  // Use a Builder widget to get a new context to call Scaffold.of(context)
                   if (state is LoadingOrderState) {
-                    // Show a loading indicator while data is being fetched
                     return Center(child: CircularProgressIndicator());
                   } else {
                     return homeCubit.OrderData.isEmpty
@@ -43,7 +43,6 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                       itemBuilder: (context, index) {
                         Order order = homeCubit.OrderData[index];
                         homeCubit.OrderData[index].fetchOrderData();
-                       // state.order[index].orders[index].fetchOrderData();
                         return Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
@@ -56,6 +55,12 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('العنوان: ${order.OrderAddress}'),
+                                GestureDetector(
+                                  onTap: () {
+                                    homeCubit.makePhoneCall(order.CustomerNumber);
+                                  },
+                                    child: Text('رقم الهاتف: ${order.CustomerNumber}')
+                                ),
                                 Text('الكمية: ${order.Quantity} لتر'),
                                 Text('الهدية: ${order.CustomerGift}'),
                               ],

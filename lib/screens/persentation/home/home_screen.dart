@@ -20,8 +20,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: homeCubit,
-      child:
-          BlocBuilder<GeneralCubit, GeneralState>(builder: (context, states) {
+      child: BlocBuilder<GeneralCubit, GeneralState>(builder: (context, states) {
         return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.transparent,

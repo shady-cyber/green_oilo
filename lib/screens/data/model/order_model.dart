@@ -25,6 +25,8 @@ class Order {
   String OrderStatus = "status";
   String OrderAddress = "Address";
   String CustomerName = "Customer Name";
+  String CustomerNumberFull = "Customer Number";
+  String CustomerNumber = "Customer Number";
   String CustomerGift = "Gift";
   String address2 = "";
 
@@ -74,6 +76,8 @@ class Order {
       OrderAddress = address.addressLine1 + " " + address2 + " " + address.state.stateName + " " + address.city.cityName;
     }
     CustomerName = customer.fullName;
+    CustomerNumberFull = customer.mobileNumber;
+    CustomerNumber = CustomerNumberFull.substring(2);
     CustomerGift = gift.giftName;
     OrderStatus = status;
   }

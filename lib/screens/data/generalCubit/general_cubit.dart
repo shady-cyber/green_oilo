@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_template/business/shared/widgets/loader.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../business/saved_data/cache_helper.dart';
 import '../model/order_main_model.dart';
 import '../model/order_model.dart';
@@ -110,8 +111,17 @@ class GeneralCubit extends Cubit<GeneralState> {
   Future<void> refreshData(BuildContext context) async {
     emit(LoadingOrderState()); // Add a loading state
     await Future.delayed(Duration(seconds: 2));
-    repo.getOrderData(context, CacheHelper.getData(key: "phone"));
+    fetchOrderData(context, CacheHelper.getData(key: "phone"));
     emit(SuccessOrderLoaded());
+  }
+
+  void makePhoneCall(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
 }

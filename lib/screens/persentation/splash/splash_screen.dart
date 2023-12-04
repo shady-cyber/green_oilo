@@ -12,8 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Wait for 5 seconds and then navigate to the login screen
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 1), () {
       Navigator.pushNamed(context, Routes.login);
     });
   }
@@ -23,13 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //     begin: Alignment.topCenter,
-        //     end: Alignment.bottomCenter,
-        //     colors: [Colors.green, Colors.white],
-        //   ),
-        // ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -41,15 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 200, // Adjust the height as needed
               ),
               SizedBox(height: 16),
-              // Optional: Add a text below the logo
-              // Text(
-              //   'Delivery Boy',
-              //   style: TextStyle(
-              //     fontSize: 20,
-              //     fontWeight: FontWeight.bold,
-              //     color: Colors.white,
-              //   ),
-              // ),
             ],
           ),
         ),
