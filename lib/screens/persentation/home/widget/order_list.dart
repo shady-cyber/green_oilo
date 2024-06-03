@@ -59,7 +59,7 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                                   onTap: () {
                                     homeCubit.makePhoneCall(order.CustomerNumber);
                                   },
-                                    child: Text('رقم الهاتف: ${order.CustomerNumber}')
+                                    child: Text('رقم الهاتف: ${order.CustomerNumber}',style: TextStyle(color: Colors.red),)
                                 ),
                                 Text('الكمية: ${order.Quantity} لتر'),
                                 Text('الهدية: ${order.CustomerGift}'),
