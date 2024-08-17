@@ -2,7 +2,7 @@
     package="com.project.sample_template">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="greenOilo"
+        android:label="Reni"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
