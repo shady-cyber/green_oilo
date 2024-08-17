@@ -24,6 +24,7 @@ class HomeScreen extends StatelessWidget {
         return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.transparent,
+              automaticallyImplyLeading: false, // Removes the back button
               elevation: 0,
             leading: null,
             leadingWidth: 10.0,

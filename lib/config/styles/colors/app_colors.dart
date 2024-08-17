@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'hex_color.dart';
 
 class AppColors {
-  static const Color primaryColor = Color(0xff418329);
+  static const Color primaryColor = Color(0xff11af8c);
   static const Color validateTextColorRed = Color(0xffE8582D);
-  static const Color validateTextColorGreen = Color(0xff94CB43);
+  static const Color validateTextColorGreen = Color(0xff11af8c);
   static const Color validateTextColorGrey = Color(0xff8D93A5);
   static const Color grayColor = Color(0xffD5D5D5);
   static const Color goldColor = Color(0xfffff71b);

@@ -32,8 +32,8 @@ class LoginScreen extends StatelessWidget {
                         // Your app logo or any other image can go here
                         Image.asset(
                           ImgAssets.splashImage,
-                          width: 100,
-                          height: 100,
+                          width: 150,
+                          height: 150,
                         ),
                         SizedBox(height: 16),
                         Text(

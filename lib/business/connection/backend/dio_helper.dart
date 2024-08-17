@@ -3,7 +3,7 @@ import 'end_points.dart';
 
 class DioHelper {
   static Dio dio = Dio(
-    BaseOptions(baseUrl: EndPoints.BASE_URL, receiveDataWhenStatusError: true),
+    BaseOptions(baseUrl: EndPoints.BASE_URL+ EndPoints.SUB_URL, receiveDataWhenStatusError: true),
   );
   DioHelper();
 

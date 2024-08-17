@@ -12,7 +12,7 @@ class OrderDataRepo extends OrderRepoAbstract {
   Future<List<OrdersMain>> getOrderData(BuildContext context, String phone) async {
     try {
       var result = await DioHelper.getData(
-        path: EndPoints.BASE_URL + EndPoints.GET_ALL + phone,
+        path: EndPoints.BASE_URL + EndPoints.SUB_URL + EndPoints.GET_ALL + phone,
       );
       if (result.data is Map<String, dynamic>) {
         Map<String, dynamic> data = result.data;

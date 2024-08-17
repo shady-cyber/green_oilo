@@ -53,9 +53,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: 'dev_asstes/green_oilo.jpg'
+  image_path: 'dev_asstes/renie_Logo.png'
   adaptive_icon_background: '#191919'
-  adaptive_icon_foreground: 'dev_asstes/green_oilo.jpg'
+  adaptive_icon_foreground: 'dev_asstes/renie_Logo.png'
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
