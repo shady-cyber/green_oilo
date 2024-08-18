@@ -4,15 +4,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_template/business/shared/widgets/shared_button.dart';
 import 'package:sample_template/config/styles/colors/app_colors.dart';
 import 'package:sample_template/config/styles/strings/app/app_strings.dart';
-import 'package:sample_template/screens/data/model/order_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../business/shared/widgets/loader.dart';
 import '../../../config/assets/assets_manager.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../config/routes/navigation_arguments.dart';
 import '../../data/generalCubit/general_cubit.dart';
 import '../../data/generalCubit/general_state.dart';
+import '../../data/model/order_main_model.dart';
 
 class LoginScreen extends StatelessWidget {
+
+  Future<void> _saveLoginState(String phoneNumber) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("phoneNumber", phoneNumber);
+    await prefs.setBool('isLoggedIn', true);
+  }
+
   @override
   Widget build(BuildContext context) {
     final generalCubit = GeneralCubit();
@@ -65,36 +73,50 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () async {
                             Loader.start();
                             if (phoneController.text.isNotEmpty) {
-                              await generalCubit.fetchOrderData(context, phoneController.text).then((value) {
-                                GeneralOrderData state = GeneralOrderData(value);
-                                value = state.order;
-                                var stateOrder = state.order;
-                                if(value == stateOrder){
-                                       Loader.stop(context);
-                                       Navigator.pushNamed(context, Routes.home,
-                                         arguments: NavigationArguments(cubit: generalCubit, data: state),
-                                       );
-                                    } else {
-                                      Loader.stop(context);
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text("من فضلك ادخل رقم الهاتف"),
-                                          ));
-                                    }
-                                });
+                              try {
+                                // Fetch the order data using the phone number
+                                GeneralOrderData state = await generalCubit.fetchOrderData(context, phoneController.text);
+                                List<OrdersMain> orders = state.order; // Extract the list of orders
 
+                                // Perform your validation and navigation
+                                if (orders.isNotEmpty) {
+                                  Loader.stop(context);
+                                  _saveLoginState(phoneController.text); // Save login state
+                                  Navigator.pushNamed(
+                                    context,
+                                    Routes.home,
+                                    arguments: NavigationArguments(cubit: generalCubit, data: state),
+                                  );
+                                } else {
+                                  Loader.stop(context);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("No orders found."),
+                                    ),
+                                  );
+                                }
+                              } catch (e) {
+                                // Handle errors
+                                Loader.stop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("An error occurred: ${e.toString()}"),
+                                  ),
+                                );
+                              }
                             } else {
                               Loader.stop(context);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text("من فضلك ادخل رقم الهاتف"),
-                                  ));
+                                SnackBar(
+                                  content: Text("من فضلك ادخل رقم الهاتف"),
+                                ),
+                              );
                             }
                           },
                           title: AppStrings.loginBtn,
                           textTitleSize: 20,
                           color: AppColors.primaryColor,
-                        ),
+                        )
                       ],
                     ),
                   ),

@@ -13,6 +13,7 @@ abstract class GeneralState extends Equatable {
 class GeneralOrderData extends GeneralState {
   final List<OrdersMain> order;
   GeneralOrderData(this.order) : super();
+
   factory GeneralOrderData.fromJson(Map<String, dynamic> json) {
     final List<dynamic> orderListJson = json['order'];
     final List<OrdersMain> orderList = orderListJson.map((orderJson) => OrdersMain.fromJson(orderJson)).toList();

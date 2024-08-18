@@ -36,7 +36,13 @@ class GeneralCubit extends Cubit<GeneralState> {
     emit(SuccessOrderLoaded());
   }
 
-  Future <List<OrdersMain>> fetchOrderData(BuildContext context, String phone) async {
+  Future<GeneralOrderData> fetchOrderData(BuildContext context, String phoneNumber) async {
+    // Simulate data fetching and transform the response to GeneralOrderData
+    final response = await fetchOrderDataFromApi(context, phoneNumber);
+    return GeneralOrderData(response);
+  }
+
+  Future <List<OrdersMain>> fetchOrderDataFromApi(BuildContext context, String phone) async {
     bool result = false;
     emit(LoadingOrderState());
     DeliveredData.clear();
