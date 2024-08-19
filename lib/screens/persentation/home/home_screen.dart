@@ -4,7 +4,9 @@ import 'package:sample_template/config/styles/colors/app_colors.dart';
 import 'package:sample_template/screens/data/generalCubit/general_cubit.dart';
 import 'package:sample_template/screens/persentation/home/widget/delivered_list.dart';
 import 'package:sample_template/screens/persentation/home/widget/order_list.dart';
+import '../../../config/assets/assets_manager.dart';
 import '../../data/generalCubit/general_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   final GeneralCubit homeCubit;
@@ -36,6 +38,14 @@ class _HomeScreenState extends State<HomeScreen> {
     _pageController.jumpToPage(index);
   }
 
+  Future<void> logout(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Clear the login status from SharedPreferences
+    await prefs.remove('isLoggedIn');
+    // Navigate to the login screen and remove all previous routes
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -52,6 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
             elevation: 0,
             leading: null,
             leadingWidth: 10.0,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.logout, color: Colors.red),
+                onPressed: () async {
+                  await logout(context);
+                },
+              ),
+            ],
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

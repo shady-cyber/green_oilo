@@ -24,78 +24,58 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize your GeneralCubit here
     final GeneralCubit homeCubit = GeneralCubit();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: AppRoutes.navigatorKey,
+      title: AppStrings.appName,
+      theme: appTheme(),
+      onGenerateRoute: AppRoutes.onGenerateRoute,
       home: FutureBuilder<bool>(
         future: _checkLoginStatus(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              home: SplashScreen(),
-            );
-          } else if (snapshot.hasData && snapshot.data == true) {
+            return SplashScreen();
+          }
+
+          if (snapshot.hasData && snapshot.data == true) {
             return FutureBuilder<String>(
               future: _getPhoneNumber(),
               builder: (context, phoneSnapshot) {
                 if (phoneSnapshot.connectionState == ConnectionState.waiting) {
-                  return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    home: SplashScreen(),
-                  );
-                } else if (phoneSnapshot.hasData) {
+                  return SplashScreen();
+                }
+
+                if (phoneSnapshot.hasData) {
                   return FutureBuilder<GeneralOrderData>(
-                    future: homeCubit.fetchOrderData(context, phoneSnapshot.data!), // Ensure correct type
+                    future: homeCubit.fetchOrderData(context, phoneSnapshot.data!),
                     builder: (context, orderSnapshot) {
                       if (orderSnapshot.connectionState == ConnectionState.waiting) {
-                        return MaterialApp(
-                          home: SplashScreen(),
-                        );
-                      } else if (orderSnapshot.hasData) {
-                        return MaterialApp(
-                          debugShowCheckedModeBanner: false,
-                          navigatorKey: AppRoutes.navigatorKey,
-                          title: AppStrings.appName,
-                          theme: appTheme(),
-                          onGenerateRoute: AppRoutes.onGenerateRoute,
-                          home: HomeScreen(
-                            homeCubit: homeCubit,
-                            state: orderSnapshot.data!, // Pass the fetched GeneralOrderData
-                          ),
-                        );
-                      } else {
-                        return MaterialApp(
-                          debugShowCheckedModeBanner: false,
-                          home: Scaffold(
-                            body: Center(child: Text('Failed to load orders')),
-                          ),
+                        return SplashScreen();
+                      }
+
+                      if (orderSnapshot.hasData) {
+                        return HomeScreen(
+                          homeCubit: homeCubit,
+                          state: orderSnapshot.data!,
                         );
                       }
+
+                      return Scaffold(
+                        body: Center(child: Text('Failed to load orders')),
+                      );
                     },
                   );
-                } else {
-                  return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    home: Scaffold(
-                      body: Center(child: Text('Failed to load phone number')),
-                    ),
-                  );
                 }
+
+                return Scaffold(
+                  body: Center(child: Text('Failed to load phone number')),
+                );
               },
             );
-          } else {
-            return MaterialApp(
-              navigatorKey: AppRoutes.navigatorKey,
-              debugShowCheckedModeBanner: false,
-              title: AppStrings.appName,
-              theme: appTheme(),
-              onGenerateRoute: AppRoutes.onGenerateRoute,
-              home: LoginScreen(),
-            );
           }
+          return LoginScreen();
         },
       ),
     );

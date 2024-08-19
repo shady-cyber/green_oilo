@@ -67,22 +67,37 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                             ),
                             trailing: Directionality(
                               textDirection: TextDirection.rtl,
-                              child: IconButton(
-                                icon: Icon(Icons.arrow_forward_ios, color: AppColors.primaryColor, size: 20,),
-                                onPressed: () {
-                                  showModalBottomSheet(
-                                    backgroundColor: Colors.white,
-                                    context: context,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-                                    builder: (context) => Container(
-                                      height: 300,
-                                      child: SelectOrderStateDialog(
-                                        homeOrderCubit: homeCubit, states: state, index: 0,
+                              child: Transform.rotate(
+                                angle: -90 * 3.1415926535897932 / 180,
+                                child: IconButton(
+                                  icon: Icon(Icons.arrow_forward_ios, color: AppColors.primaryColor, size: 20),
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      backgroundColor: Colors.white,
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                                       ),
-                                    ),
-                                  );
-                                },
+                                      builder: (context) => Container(
+                                        height: 350,
+                                        padding: EdgeInsets.only(bottom: 10),
+                                        child: SelectOrderStateDialog(
+                                          homeOrderCubit: homeCubit,
+                                          states: state,
+                                          index: 0,
+                                          onClose: () {
+                                            homeCubit.showTextview = false; // Set showTextview to false when modal closes
+                                            homeCubit.showTextviewReceived = false; // Set showTextview to false when modal closes
+                                          },
+                                        ),
+                                      ),
+                                    ).whenComplete(() {
+                                      // Ensure showTextview is set to false when modal is dismissed
+                                      homeCubit.showTextview = false;
+                                      homeCubit.showTextviewReceived = false;
+                                    });
+                                  },
+                                ),
                               ),
                             ),
                           ),
