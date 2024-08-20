@@ -78,19 +78,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     Icon(Icons.monetization_on, color: AppColors.goldColor), // Your icon goes here
                     SizedBox(width: 8.0),
                     Text(
-                      widget.homeCubit.DeliveryBoyData[0].deliveryBoy.totalCommission.toString(),
+                      (widget.homeCubit.DeliveryBoyData.isNotEmpty && widget.homeCubit.DeliveryBoyData[0].deliveryBoy.totalCommission != null)
+                          ? widget.homeCubit.DeliveryBoyData[0].deliveryBoy.totalCommission.toString()
+                          : '0',
                       style: TextStyle(
                         fontFamily: 'Cairo',
                         color: AppColors.primaryColor,
                         fontSize: 15,
                       ),
-                    ), // Your text goes here
+                    ),// Your text goes here
                   ],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Text(
-                    widget.homeCubit.DeliveryBoyData[0].deliveryBoy.name,
+                    (widget.homeCubit.DeliveryBoyData.isNotEmpty && widget.homeCubit.DeliveryBoyData[0].deliveryBoy.name != null)
+                        ? widget.homeCubit.DeliveryBoyData[0].deliveryBoy.name.toString()
+                        : 'Delivery Boy',
                     style: TextStyle(
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.bold,

@@ -1,8 +1,11 @@
 class AppStrings {
   static const String appName = 'GreenOilo';
   static const String received = 'تم التسليم';
+  static const String receivedHEADER = 'بيانات التسليم';
   static const String ImageUpload = 'ارفق صورة';
+  static const String SuccessAdded = 'تم بنجاح';
   static const String NotReceived = 'لم يتم التسليم';
+  static const String NotReceivedHEADER = 'بيانات عدم التسليم';
   static const String selectBtn = 'تأكيد';
   static const String loginBtn = 'ادخل';
   static const String selectOrderState = 'اختر حالة الطلب';

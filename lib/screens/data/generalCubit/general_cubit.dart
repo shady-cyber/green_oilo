@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../business/saved_data/cache_helper.dart';
+import '../../../config/styles/strings/app/app_strings.dart';
 import '../model/order_main_model.dart';
 import '../model/order_model.dart';
 import '../repo/order_repo.dart';
@@ -22,11 +23,16 @@ class GeneralCubit extends Cubit<GeneralState> {
   bool showTextview = false;
   bool showTextviewReceived = false;
   int selectIndexOfOrder = 1;
-  String imagePath = "";
+  String? imagePath = "";
+  String? base64Image = "";
   List<Order> DeliveredData = [];
   List<Order> OrderData = [];
   List<OrdersMain> DeliveryBoyData = [];
   final ImagePicker _picker = ImagePicker();
+  String headerText = AppStrings.selectOrderState;
+  bool showAnimation = false;
+
+  final TextEditingController optinalText = TextEditingController();
 
   Future<void> checkPermissionCamera(String statusVal, int orderId, String? notes) async {
     final permission = Permission.camera;
@@ -67,17 +73,17 @@ class GeneralCubit extends Cubit<GeneralState> {
     }
   }
 
-  Future<void> uploadImage(String statusVal, int orderId, String? notes) async{
-    handleImageUpload(statusVal, imagePath, orderId, notes);
-  }
+  // Future<void> uploadImage(String statusVal, int orderId, String? notes) async{
+  //   handleImageUpload(statusVal, imagePath, orderId, notes);
+  // }
 
   Future<String> compressAndConvertImageToBase64(String imagePath) async {
     // Compress the image
     final compressedImage = await FlutterImageCompress.compressWithFile(
       imagePath,
-      minWidth: 800,  // Adjust as needed
-      minHeight: 600, // Adjust as needed
-      quality: 85,    // Quality between 0 and 100
+      minWidth: 400,  // Adjust as needed
+      minHeight: 300, // Adjust as needed
+      quality: 70,    // Quality between 0 and 100
     );
 
     if (compressedImage == null) {
@@ -88,14 +94,14 @@ class GeneralCubit extends Cubit<GeneralState> {
     return base64Encode(compressedImage);
   }
 
-  Future<void> handleImageUpload(String status, String orderImage, int orderId, String? notes) async {
-    bool success = await sendOrderImage(status, orderImage, orderId, notes);
-    if (success) {
-      print('Image uploaded successfully');
-    } else {
-      print('Failed to upload image');
-    }
-  }
+  // Future<void> handleImageUpload(String status, String orderImage, int orderId, String? notes) async {
+  //   bool success = await sendOrderImage(status, orderImage, orderId, notes);
+  //   if (success) {
+  //     print('Image uploaded successfully');
+  //   } else {
+  //     print('Failed to upload image');
+  //   }
+  // }
 
   selectOrderFunc(Object item, int index) {
     emit(LoadingOrderState());
@@ -103,6 +109,16 @@ class GeneralCubit extends Cubit<GeneralState> {
     selectOrder = item;
     selectIndexOfOrder = index;
     emit(SuccessOrderLoaded());
+  }
+
+  void changeHeaderText(String newText) {
+    headerText = newText;
+    emit(HeaderTextChanged()); // Emit a new state to notify the UI
+  }
+
+  void changAnimationState(bool newValue) {
+    showAnimation = newValue;
+    emit(ShowAnimationState()); // Emit a new state to notify the UI
   }
 
   handelShowTextview(){
@@ -114,6 +130,13 @@ class GeneralCubit extends Cubit<GeneralState> {
   handelShowTextviewReceived(){
     emit(LoadingOrderState());
     showTextviewReceived = !showTextviewReceived;
+    emit(SuccessOrderLoaded());
+  }
+
+  handelTextViewOnBack(){
+    emit(LoadingOrderState());
+    showTextviewReceived = false;
+    showTextview = false;
     emit(SuccessOrderLoaded());
   }
 
@@ -184,10 +207,14 @@ class GeneralCubit extends Cubit<GeneralState> {
   Future<bool> sendOrderStatus(String status, int orderId, String? notes) async {
     emit(LoadingOrderState());
     String phone = CacheHelper.getData(key: "phone");
+    if(imagePath != ""){
+      base64Image = await compressAndConvertImageToBase64(imagePath!);
+    }
     try {
-      await repo.sendOrderStatus(status, orderId,
+      await repo.sendOrderStatus(status, base64Image, orderId,
           notes, phone);
       emit(SuccessOrderDeliveryLoaded());
+      changAnimationState(showAnimation);
       return true;
     } on DioError catch (e) {
       print(e);
@@ -198,25 +225,25 @@ class GeneralCubit extends Cubit<GeneralState> {
     }
   }
 
-  Future<bool> sendOrderImage(String status, String imagePath, int orderId, String? notes) async {
-    emit(LoadingOrderState());
-
-    // Convert image to Base64
-    String base64Image = await compressAndConvertImageToBase64(imagePath);
-
-    String phone = CacheHelper.getData(key: "phone");
-    try {
-      await repo.sendOrderImage("image", base64Image, orderId, "", phone);
-      emit(SuccessOrderDeliveryLoaded());
-      return true;
-    } on DioError catch (e) {
-      print(e);
-      print(e.error);
-      print(e.message);
-      emit(ErrorOrderLoaded());
-      return false;
-    }
-  }
+  // Future<bool> sendOrderImage(String status, String imagePath, int orderId, String? notes) async {
+  //   emit(LoadingOrderState());
+  //
+  //   // Convert image to Base64
+  //   String base64Image = await compressAndConvertImageToBase64(imagePath);
+  //
+  //   String phone = CacheHelper.getData(key: "phone");
+  //   try {
+  //     await repo.sendOrderImage(status, base64Image, orderId, "", phone);
+  //     emit(SuccessOrderDeliveryLoaded());
+  //     return true;
+  //   } on DioError catch (e) {
+  //     print(e);
+  //     print(e.error);
+  //     print(e.message);
+  //     emit(ErrorOrderLoaded());
+  //     return false;
+  //   }
+  // }
 
 
   savePhoneNumber(String phone) {

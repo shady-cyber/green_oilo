@@ -39,12 +39,13 @@ class OrderDataRepo extends OrderRepoAbstract {
   }
 
   @override
-  Future<DeliveryOrder> sendOrderStatus(String status, int orderId,
+  Future<DeliveryOrder> sendOrderStatus(String status, String? base64Image, int orderId,
       String? notes, String phone) async {
     var response = await DioHelper.postData(
       path: EndPoints.UPDATE_ORDER,
       data: {
         "status": status,
+        "order_image": base64Image,
         "order_id": orderId,
         "notes": notes,
         "delivery_mobile": phone,
@@ -56,24 +57,24 @@ class OrderDataRepo extends OrderRepoAbstract {
       throw Exception("Error sending order status");
     }
   }
-
-  @override
-  Future<void> sendOrderImage(String status, String image, int orderId, String? notes, String phone) async {
-    var response = await DioHelper.postData(
-      path: EndPoints.UPDATE_ORDER,
-      data: {
-        "status": status,
-        "order_image": image,
-        "order_id": orderId,
-        "notes": notes,
-        "delivery_mobile": phone,
-      },
-    );
-    if (response.statusCode == 200) {
-     // return DeliveryOrder.fromJson(response.data);
-      print(response.data);
-    } else {
-      throw Exception("Error sending order status");
-    }
-  }
+  //
+  // @override
+  // Future<void> sendOrderImage(String status, String image, int orderId, String? notes, String phone) async {
+  //   var response = await DioHelper.postData(
+  //     path: EndPoints.UPDATE_ORDER,
+  //     data: {
+  //       "status": status,
+  //       "order_image": image,
+  //       "order_id": orderId,
+  //       "notes": notes,
+  //       "delivery_mobile": phone,
+  //     },
+  //   );
+  //   if (response.statusCode == 200) {
+  //    // return DeliveryOrder.fromJson(response.data);
+  //     print(response.data);
+  //   } else {
+  //     throw Exception("Error sending order status");
+  //   }
+  // }
 }

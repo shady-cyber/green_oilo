@@ -29,6 +29,7 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
             child: RefreshIndicator(
               key: _refreshKey,
               onRefresh: () async {
+                // Call refreshData to update OrderData
                 await homeCubit.refreshData(context);
               },
               child: Builder(
@@ -42,7 +43,6 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                       itemCount: homeCubit.OrderData.length,
                       itemBuilder: (context, index) {
                         Order order = homeCubit.OrderData[index];
-                        homeCubit.OrderData[index].fetchOrderData();
                         return Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
@@ -59,7 +59,7 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                                   onTap: () {
                                     homeCubit.makePhoneCall(order.CustomerNumber);
                                   },
-                                    child: Text('رقم الهاتف: ${order.CustomerNumber}',style: TextStyle(color: Colors.red),)
+                                  child: Text('رقم الهاتف: ${order.CustomerNumber}', style: TextStyle(color: Colors.red)),
                                 ),
                                 Text('الكمية: ${order.Quantity} لتر'),
                                 Text('الهدية: ${order.CustomerGift}'),
@@ -75,20 +75,23 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                                     showModalBottomSheet(
                                       backgroundColor: Colors.white,
                                       context: context,
+                                      isScrollControlled: true, // Allows the bottom sheet to be flexible in height
                                       shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                                       ),
-                                      builder: (context) => Container(
-                                        height: 350,
-                                        padding: EdgeInsets.only(bottom: 10),
-                                        child: SelectOrderStateDialog(
-                                          homeOrderCubit: homeCubit,
-                                          states: state,
-                                          index: 0,
-                                          onClose: () {
-                                            homeCubit.showTextview = false; // Set showTextview to false when modal closes
-                                            homeCubit.showTextviewReceived = false; // Set showTextview to false when modal closes
-                                          },
+                                      builder: (context) => Padding(
+                                        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                                        child: Container(
+                                          height: 300,
+                                          child: SelectOrderStateDialog(
+                                            homeOrderCubit: homeCubit,
+                                            states: state,
+                                            index: 0,
+                                            onClose: () {
+                                              homeCubit.showTextview = false; // Set showTextview to false when modal closes
+                                              homeCubit.showTextviewReceived = false; // Set showTextview to false when modal closes
+                                            },
+                                          ),
                                         ),
                                       ),
                                     ).whenComplete(() {
@@ -114,3 +117,4 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
     ],
   );
 }
+

@@ -5,5 +5,5 @@ import '../model/order_model.dart';
 
 abstract class OrderRepoAbstract {
    Future<List<OrdersMain>> getOrderData(BuildContext context, String phone);
-   Future<DeliveryOrder> sendOrderStatus(String status, int orderId, String notes, String phone);
+   Future<DeliveryOrder> sendOrderStatus(String status, String? image, int orderId, String? notes, String phone);
 }

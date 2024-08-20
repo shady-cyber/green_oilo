@@ -30,6 +30,10 @@ class LoadingOrderState extends GeneralState {}
 
 class SuccessOrderLoaded extends GeneralState {}
 
+class HeaderTextChanged extends GeneralState {}
+
+class ShowAnimationState extends GeneralState {}
+
 class SuccessOrderDeliveryLoaded extends GeneralState {}
 
 class ErrorOrderLoaded extends GeneralState {}
