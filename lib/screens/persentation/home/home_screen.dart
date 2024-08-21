@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_template/config/styles/colors/app_colors.dart';
-import 'package:sample_template/screens/data/generalCubit/general_cubit.dart';
-import 'package:sample_template/screens/persentation/home/widget/delivered_list.dart';
-import 'package:sample_template/screens/persentation/home/widget/order_list.dart';
+import 'package:reni/config/styles/colors/app_colors.dart';
+import 'package:reni/screens/data/generalCubit/general_cubit.dart';
+import 'package:reni/screens/persentation/home/widget/delivered_list.dart';
+import 'package:reni/screens/persentation/home/widget/order_list.dart';
 import '../../../config/assets/assets_manager.dart';
 import '../../data/generalCubit/general_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocBuilder<GeneralCubit, GeneralState>(builder: (context, states) {
         return WillPopScope(
             onWillPop: () async {
+              Navigator.pop(context);
           return true;  // Allows the app to close when the back button is pressed
         },
         child: Scaffold(

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.project" "\0"
-            VALUE "FileDescription", "sample_template" "\0"
+            VALUE "FileDescription", "reni" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "sample_template" "\0"
+            VALUE "InternalName", "reni" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.project. All rights reserved." "\0"
-            VALUE "OriginalFilename", "sample_template.exe" "\0"
-            VALUE "ProductName", "sample_template" "\0"
+            VALUE "OriginalFilename", "reni.exe" "\0"
+            VALUE "ProductName", "reni" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

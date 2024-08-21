@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample_template/screens/data/generalCubit/general_cubit.dart';
+import 'package:reni/screens/data/generalCubit/general_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'config/routes/app_routes_logic.dart';
 import 'config/styles/strings/app/app_strings.dart';

@@ -1,6 +1,6 @@
 {
-    "name": "sample_template",
-    "short_name": "sample_template",
+    "name": "reni",
+    "short_name": "reni",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

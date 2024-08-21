@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sample_template/config/assets/assets_manager.dart';
-import 'package:sample_template/screens/data/generalCubit/general_cubit.dart';
+import 'package:reni/config/assets/assets_manager.dart';
+import 'package:reni/screens/data/generalCubit/general_cubit.dart';
 import '../../../../../../../business/shared/textstyle/customTextFormStyle.dart';
 import '../../../../../../../business/shared/widgets/shared_button.dart';
 import '../../../../../../../config/styles/colors/app_colors.dart';

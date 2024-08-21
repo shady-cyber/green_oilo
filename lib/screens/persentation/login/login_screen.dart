@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_template/business/shared/widgets/shared_button.dart';
-import 'package:sample_template/config/styles/colors/app_colors.dart';
-import 'package:sample_template/config/styles/strings/app/app_strings.dart';
+import 'package:reni/business/shared/widgets/shared_button.dart';
+import 'package:reni/config/styles/colors/app_colors.dart';
+import 'package:reni/config/styles/strings/app/app_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../business/shared/widgets/loader.dart';
 import '../../../config/assets/assets_manager.dart';

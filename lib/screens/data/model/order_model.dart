@@ -1,4 +1,4 @@
-import 'package:sample_template/screens/data/model/timeslot_order.dart';
+import 'package:reni/screens/data/model/timeslot_order.dart';
 
 import 'address_model.dart';
 import 'customer_model.dart';

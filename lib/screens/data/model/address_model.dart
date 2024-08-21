@@ -1,4 +1,4 @@
-import 'package:sample_template/screens/data/model/state_model.dart';
+import 'package:reni/screens/data/model/state_model.dart';
 
 import 'city_model.dart';
 

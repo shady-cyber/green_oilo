@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample_template/config/assets/assets_manager.dart';
+import 'package:reni/config/assets/assets_manager.dart';
 import '../../../config/styles/colors/app_colors.dart';
 
 class SplashScreen extends StatelessWidget {

@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:sample_template/screens/persentation/home/widget/select_state_dialog.dart';
+import 'package:logger/logger.dart';
+import 'package:reni/screens/persentation/home/widget/select_state_dialog.dart';
 import '../../../../config/styles/colors/app_colors.dart';
+import '../../../../network.dart';
 import '../../../data/generalCubit/general_cubit.dart';
 import '../../../data/generalCubit/general_state.dart';
 import '../../../data/model/order_model.dart';
@@ -37,12 +41,17 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                   if (state is LoadingOrderState) {
                     return Center(child: CircularProgressIndicator());
                   } else {
+
+
                     return homeCubit.OrderData.isEmpty
                         ? Center(child: Text('لا يوجد طلبات'))
                         : ListView.builder(
                       itemCount: homeCubit.OrderData.length,
                       itemBuilder: (context, index) {
                         Order order = homeCubit.OrderData[index];
+                        NetworkConnectivity().logData(homeCubit.OrderData[index]);
+                        NetworkConnectivity().logDataString(order.customer.mobileNumber);
+
                         return Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
@@ -50,19 +59,19 @@ Widget OrderedList(BuildContext context, GeneralOrderData state, GeneralCubit ho
                           ),
                           elevation: 0,
                           child: ListTile(
-                            title: Text(order.CustomerName),
+                            title: Text(order.customer.fullName),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('العنوان: ${order.OrderAddress}'),
+                            Text('العنوان: ${order.address.addressLine1 ?? 'No Address'}\n${order.address.addressLine2 != null && order.address.addressLine2!.isNotEmpty ? 'العنوان 2: ${order.address.addressLine2}' : 'No Address 2'}'),
                                 GestureDetector(
                                   onTap: () {
-                                    homeCubit.makePhoneCall(order.CustomerNumber);
+                                    homeCubit.makePhoneCall(order.customer.mobileNumber);
                                   },
-                                  child: Text('رقم الهاتف: ${order.CustomerNumber}', style: TextStyle(color: Colors.red)),
+                                  child: Text('رقم الهاتف: ${order.customer.mobileNumber}', style: TextStyle(color: Colors.red)),
                                 ),
-                                Text('الكمية: ${order.Quantity} لتر'),
-                                Text('الهدية: ${order.CustomerGift}'),
+                                Text('الكمية: ${order.quantity} لتر'),
+                                Text('الهدية: ${order.gift.giftName}'),
                               ],
                             ),
                             trailing: Directionality(
