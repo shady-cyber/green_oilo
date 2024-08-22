@@ -39,11 +39,10 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         // Your app logo or any other image can go here
                         Image.asset(
-                          ImgAssets.splashImage,
-                          width: 150,
-                          height: 150,
+                          ImgAssets.LoginImage,
+                          width: 250,
+                          height: 250,
                         ),
-                        SizedBox(height: 16),
                         Text(
                           'ادخل رقم هاتفك للتسجيل',
                           style: TextStyle(
@@ -64,7 +63,18 @@ class LoginScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.phone),
                             labelText: 'رقم الهاتف',
-                            border: OutlineInputBorder(),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.greenAccent, width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey, width: 10.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                           ),
                         ),
                         SizedBox(height: 16),

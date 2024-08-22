@@ -12,11 +12,11 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
           // Your logo image goes here
-          Image.asset(
-          ImgAssets.splashImage,
-          width: 200, // Adjust the width as needed
-          height: 200, // Adjust the height as needed
-            ),
+            Image.asset(
+            ImgAssets.splashImage,
+            width: 200, // Adjust the width as needed
+            height: 200, // Adjust the height as needed
+              ),
              SizedBox(height: 16),
              CircularProgressIndicator(),
             ],// Replace with your app icon if desired

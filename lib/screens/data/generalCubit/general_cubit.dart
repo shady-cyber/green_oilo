@@ -260,11 +260,35 @@ class GeneralCubit extends Cubit<GeneralState> {
   }
 
   void makePhoneCall(String phoneNumber) async {
-    final url = 'tel:$phoneNumber';
-    if (await canLaunch(url)) {
-      await launch(url);
+    final formattedNumber = phoneNumber.replaceAll(RegExp(r'\s+'), '');
+    final Uri url = Uri(scheme: 'tel', path: formattedNumber);
+
+    // Check if the call permission is granted
+    final status = await Permission.phone.status;
+    if (status.isGranted) {
+      // Permission is already granted, launch the URL
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } else if (status.isDenied) {
+      // Permission is denied, request permission
+      final result = await Permission.phone.request();
+      if (result.isGranted) {
+        // Permission granted, launch the URL
+        if (await canLaunchUrl(url)) {
+          await launchUrl(url);
+        } else {
+          throw 'Could not launch $url';
+        }
+      } else {
+        // Permission denied, show a message to the user
+        throw 'Permission to make phone calls is denied.';
+      }
     } else {
-      throw 'Could not launch $url';
+      // Handle other permission statuses if needed
+      throw 'Could not determine permission status.';
     }
   }
 

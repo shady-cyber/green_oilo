@@ -140,10 +140,11 @@ class _SelectOrderStateDialogState extends State<SelectOrderStateDialog> {
                                         ).then((value) {
                                           if (value == true) {
                                             // Remove the item from the list
+                                            widget.homeOrderCubit.handelTextViewOnBack();
                                             widget.homeOrderCubit.OrderData.removeAt(widget.index);
                                             widget.homeOrderCubit.showAnimation = true;
                                             widget.homeOrderCubit.changeHeaderText(AppStrings.SuccessAdded);
-                                             widget.homeOrderCubit.handelTextViewOnBack();
+
                                             // Optionally hide the animation after a delay
                                             Future.delayed(Duration(seconds: 2), () {
                                               widget.homeOrderCubit.showAnimation = false;
@@ -262,10 +263,10 @@ class _SelectOrderStateDialogState extends State<SelectOrderStateDialog> {
                                           widget.homeOrderCubit.optinalText.text,
                                         ).then((value) {
                                           if (value == true) {
+                                            widget.homeOrderCubit.handelTextViewOnBack();
                                             widget.homeOrderCubit.OrderData.removeAt(widget.index);
                                               widget.homeOrderCubit.showAnimation = true;
                                               widget.homeOrderCubit.changeHeaderText(AppStrings.SuccessAdded);
-                                              widget.homeOrderCubit.handelTextViewOnBack();
 
                                             Future.delayed(Duration(seconds: 2), () {
                                                 widget.homeOrderCubit.showAnimation = false;

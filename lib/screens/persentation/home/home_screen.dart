@@ -110,8 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
             controller: _pageController,
             onPageChanged: _onPageChanged,
             children: [
-              OrderedList(context, widget.state, widget.homeCubit),
-              DeliveredList(context, widget.state, widget.homeCubit),
+              OrdersList(context: context, state: widget.state, homeCubit: widget.homeCubit),
+              DeliveredList(context: context, state: widget.state, homeCubit: widget.homeCubit),
             ],
           ),
           bottomNavigationBar: Directionality(

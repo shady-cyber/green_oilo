@@ -23,7 +23,7 @@ class AppColors {
   static const Color unactivivedColorNew = Color(0xffdddddd);
   static Color unactivivedColorNew1 = HexColor("#dddddd");
 
-  static const scaffoldBackgroundColor = Color(0XFFFDFDFD);
+  static const scaffoldBackgroundColor = Colors.white;
 
   static const checkBoxBackgroundColor = Color(0XFFF2F2F2);
 
