@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String appName = 'GreenOilo';
+  static const String appName = 'Reni';
   static const String received = 'تم التسليم';
   static const String receivedHEADER = 'بيانات التسليم';
   static const String ImageUpload = 'ارفق صورة';
