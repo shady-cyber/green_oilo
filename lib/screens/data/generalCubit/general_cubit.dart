@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -34,42 +35,76 @@ class GeneralCubit extends Cubit<GeneralState> {
 
   final TextEditingController optinalText = TextEditingController();
 
+  Future<bool> requestCameraPermission() async {
+    // Web browsers typically don't require permission for the camera
+    return true; // Consider this as granted for web
+  }
+
   Future<void> checkPermissionCamera(String statusVal, int orderId, String? notes) async {
     final permission = Permission.camera;
-    if (await permission.isDenied) {
-      final result = await permission.request();
-      if (result.isGranted) {
+    if (kIsWeb) {
+      // If running on web, assume permission is granted (or implement your own logic)
+      final isGranted = await requestCameraPermission();
+      if (isGranted) {
         openCamera(statusVal, orderId, notes);
-        // Permission is granted
-      } else if (result.isDenied) {
-        // Permission is denied
-      } else if (result.isPermanentlyDenied) {
-        // Permission is permanently denied
       }
     } else {
-      final result = await permission.request();
-      if (result.isGranted) {
-        openCamera(statusVal, orderId, notes);
-        // Permission is granted
+      // For mobile platforms
+      if (await permission.isDenied) {
+        final result = await permission.request();
+        if (result.isGranted) {
+          openCamera(statusVal, orderId, notes);
+          // Permission is granted
+        } else if (result.isDenied) {
+          // Handle permission denied scenario
+        } else if (result.isPermanentlyDenied) {
+          // Handle permission permanently denied scenario
+        }
+      } else {
+        final result = await permission.request();
+        if (result.isGranted) {
+          openCamera(statusVal, orderId, notes);
+          // Permission is granted
+        }
       }
     }
   }
 
   Future<void> openCamera(String statusVal, int orderId, String? notes) async {
-    final status = await Permission.camera.status;
-    if (status.isGranted) {
+    if (kIsWeb) {
+      // On web, we directly attempt to pick an image from the camera
       final XFile? image = await _picker.pickImage(source: ImageSource.camera);
       if (image != null) {
         imagePath = image.path;
-        if(statusVal == "completed"){
+        if (statusVal == "completed") {
           showTextviewReceived = true;
         } else {
           showTextview = true;
         }
-      //  handleImageUpload(statusVal, image.path, orderId, notes);
+        // handleImageUpload(statusVal, image.path, orderId, notes);
+      } else {
+        // Handle case where no image was picked
+      }
+    } else {
+      // For mobile platforms
+      final status = await Permission.camera.status;
+      if (status.isGranted) {
+        final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+        if (image != null) {
+          imagePath = image.path;
+          if (statusVal == "completed") {
+            showTextviewReceived = true;
+          } else {
+            showTextview = true;
+          }
+          // handleImageUpload(statusVal, image.path, orderId, notes);
+        } else {
+          // Handle case where no image was picked
         }
       } else {
-      // Handle permission denied
+        // Handle permission denied
+        // You might want to show a dialog or a message to the user
+      }
     }
   }
 

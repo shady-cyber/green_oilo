@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reni/screens/persentation/home/widget/select_state_dialog.dart';
 import '../../../../config/styles/colors/app_colors.dart';
+import '../../../../logs.dart';
 import '../../../../network.dart';
 import '../../../data/generalCubit/general_cubit.dart';
 import '../../../data/generalCubit/general_state.dart';
@@ -59,17 +60,14 @@ class _OrdersListState extends State<OrdersList> {
                   builder: (BuildContext context) {
                     if (widget.state is LoadingOrderState) {
                       return Center(child: CircularProgressIndicator());
-                    } else if (isOrderListEmpty) {
+                    }
+                    if (isOrderListEmpty) {
                       return Center(child: Text('لا يوجد طلبات'));
-                    }else {
+                    } else {
                       return ListView.builder(
                         itemCount: widget.homeCubit.OrderData.length,
                         itemBuilder: (context, index) {
                           Order order = widget.homeCubit.OrderData[index];
-                          // Log data for debugging purposes
-                          NetworkConnectivity().logData(order);
-                          NetworkConnectivity().logDataString(order.customer.mobileNumber);
-
                           return Column(
                             children: [
                               Card(

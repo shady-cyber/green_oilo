@@ -87,7 +87,6 @@ class LoginScreen extends StatelessWidget {
                                 // Fetch the order data using the phone number
                                 GeneralOrderData state = await generalCubit.fetchOrderData(context, phoneController.text);
                                 List<OrdersMain> orders = state.order; // Extract the list of orders
-
                                 // Perform your validation and navigation
                                 if (orders.isNotEmpty) {
                                   Loader.stop(context);
@@ -110,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                                 Loader.stop(context);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text("An error occurred: ${e.toString()}"),
+                                    content: Text("Server Error"),
                                   ),
                                 );
                               }

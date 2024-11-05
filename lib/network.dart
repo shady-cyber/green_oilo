@@ -30,23 +30,6 @@ class NetworkConnectivity {
     return _checkStatus(result, context);
   }
 
-  void logData(Order order) {
-    if (kReleaseMode || kProfileMode) {
-      debugPrint('Order details: ${order.customer.fullName}, ${order.address.addressLine1}, ${order.address.addressLine2}, ${order.customer.mobileNumber}, ${order.quantity}, ${order.gift.giftName}');
-
-    } else {
-      debugPrint('Order details: ${order.customer.fullName}, ${order.address.addressLine1}, ${order.address.addressLine2}, ${order.customer.mobileNumber}, ${order.quantity}, ${order.gift.giftName}');
-    }
-  }
-
-  void logDataString(String order) {
-    if (kReleaseMode || kProfileMode) {
-      debugPrint('Mobile number: ${order}');
-
-    } else {
-      debugPrint('Mobile number: ${order}');
-    }
-  }
 // 2.
   Future<bool> _checkStatus(
       ConnectivityResult result, BuildContext context) async {

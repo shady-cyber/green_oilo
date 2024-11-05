@@ -4,7 +4,6 @@ import 'package:reni/config/styles/colors/app_colors.dart';
 import 'package:reni/screens/data/generalCubit/general_cubit.dart';
 import 'package:reni/screens/persentation/home/widget/delivered_list.dart';
 import 'package:reni/screens/persentation/home/widget/order_list.dart';
-import '../../../config/assets/assets_manager.dart';
 import '../../data/generalCubit/general_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
