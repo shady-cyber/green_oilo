@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,13 +13,19 @@ import '../../../config/routes/navigation_arguments.dart';
 import '../../data/generalCubit/general_cubit.dart';
 import '../../data/generalCubit/general_state.dart';
 import '../../data/model/order_main_model.dart';
+import 'dart:html' as html;
 
 class LoginScreen extends StatelessWidget {
 
   Future<void> _saveLoginState(String phoneNumber) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("phoneNumber", phoneNumber);
-    await prefs.setBool('isLoggedIn', true);
+    if (kIsWeb) {
+      html.window.localStorage['phoneNumber'] = phoneNumber;
+      html.window.localStorage['isLoggedIn'] = 'true';
+    } else {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("phoneNumber", phoneNumber);
+      await prefs.setBool('isLoggedIn', true);
+    }
   }
 
   @override
@@ -81,7 +88,9 @@ class LoginScreen extends StatelessWidget {
                         // Login button
                         SharedButton(
                           onPressed: () async {
-                            Loader.start();
+                            if (!kIsWeb) {
+                              Loader.start();
+                            }
                             if (phoneController.text.isNotEmpty) {
                               try {
                                 // Fetch the order data using the phone number
@@ -89,7 +98,9 @@ class LoginScreen extends StatelessWidget {
                                 List<OrdersMain> orders = state.order; // Extract the list of orders
                                 // Perform your validation and navigation
                                 if (orders.isNotEmpty) {
-                                  Loader.stop(context);
+                                  if (!kIsWeb) {
+                                    Loader.stop(context);
+                                  }
                                   _saveLoginState(phoneController.text); // Save login state
                                   Navigator.pushNamed(
                                     context,
@@ -97,7 +108,9 @@ class LoginScreen extends StatelessWidget {
                                     arguments: NavigationArguments(cubit: generalCubit, data: state),
                                   );
                                 } else {
-                                  Loader.stop(context);
+                                  if (!kIsWeb) {
+                                    Loader.stop(context);
+                                  }
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text("No orders found."),
@@ -106,7 +119,9 @@ class LoginScreen extends StatelessWidget {
                                 }
                               } catch (e) {
                                 // Handle errors
-                                Loader.stop(context);
+                                if (!kIsWeb) {
+                                  Loader.stop(context);
+                                }
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text("Server Error"),
@@ -114,7 +129,9 @@ class LoginScreen extends StatelessWidget {
                                 );
                               }
                             } else {
-                              Loader.stop(context);
+                              if (!kIsWeb) {
+                                Loader.stop(context);
+                              }
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text("من فضلك ادخل رقم الهاتف"),
