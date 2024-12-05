@@ -9,8 +9,8 @@ class Gift {
 
   factory Gift.fromJson(Map<String, dynamic> json) {
     return Gift(
-      giftName: json['gift_name'] ?? "",
-      giftDescription: json['gift_description'] ?? "",
+      giftName: json['name'] ?? "",
+      giftDescription: json['description'] ?? "",
     );
   }
 }

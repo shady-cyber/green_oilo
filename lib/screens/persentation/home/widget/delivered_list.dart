@@ -54,7 +54,7 @@ class _DeliveredListState extends State<DeliveredList> {
                         key: _refreshKey,
                         onRefresh: () async {
                           // Implement refreshData method in your GeneralCubit
-                          await widget.homeCubit.refreshData(context);
+                         // await widget.homeCubit.refreshData(context);
                         },
                         child: widget.homeCubit.DeliveredData.isEmpty
                             ? Center(child: Text('لا يوجد طلبات'))
