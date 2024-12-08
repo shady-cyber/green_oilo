@@ -19,15 +19,22 @@ class NetworkConnectivity {
 
 
   NetworkConnectivity(){}
-  // 1.
+
   Future<bool> initialise(BuildContext context) async {
-    ConnectivityResult result = await _networkConnectivity.checkConnectivity();
-    _checkStatus(result, context);
-    _networkConnectivity.onConnectivityChanged.listen((result) {
-      print(result);
+    // Check the connectivity status and handle it properly
+    List<ConnectivityResult> results = await _networkConnectivity.checkConnectivity();
+    // Loop through the results to determine the current connectivity status
+    for (var result in results) {
       _checkStatus(result, context);
+    }
+    // Listen for connectivity changes
+    _networkConnectivity.onConnectivityChanged.listen((result) {
+      for (var result in results) {
+        _checkStatus(result, context);
+      }
     });
-    return _checkStatus(result, context);
+    // Return true if at least one valid connectivity result indicates a connection
+    return results.any((result) => result == ConnectivityResult.mobile || result == ConnectivityResult.wifi);
   }
 
 // 2.
